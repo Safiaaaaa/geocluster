@@ -1,0 +1,7 @@
+sklearn
+pandas
+fastapi
+setuptools
+streamlit-folium
+streamlit
+folium
