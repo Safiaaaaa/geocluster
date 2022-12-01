@@ -18,8 +18,9 @@ app.add_middleware(
 def cluster(n_clusters:int, features: Union[List[str], None] = Query(default='child_pov')):
     df = pd.read_csv('/Users/Safia/code/Safiaaaaa/geocluster/geocluster/data/df_dropna.csv')
     selected = feature_df(df, features)
-    clusters = kmeans_clustering(n_clusters, selected)
-    return clusters.to_dict()
+    clusters_df = kmeans_clustering(n_clusters, selected)
+    
+    return clusters_df.to_dict()
 
 if __name__ == "__main__":
     df = pd.read_csv('/Users/Safia/code/Safiaaaaa/geocluster/geocluster/data/df_dropna.csv')
