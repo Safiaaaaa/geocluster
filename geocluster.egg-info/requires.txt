@@ -1,25 +1,13 @@
-# packaging
 pip>=9
 setuptools>=26
 matplotlib
 plotly
-
-# data
 numpy
 pandas
 sklearn
-
-# api
 fastapi
-
-# frontend
 streamlit-folium
 streamlit
 folium
 memoized-property
 geopandas
-
-
-
-
-
