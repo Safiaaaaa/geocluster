@@ -11,7 +11,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import geopandas as gdp
 import plotly.express as px
-from PIL import Image
+# from PIL import Image
 
 
 select_data = st.slider('Number of clusters', 1, 20)
