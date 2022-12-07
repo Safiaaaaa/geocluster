@@ -1,12 +1,8 @@
-import json
 import streamlit as st
 from streamlit_folium import folium_static
 import folium
 import pandas as pd
 import numpy as np
-import requests
-
-import geojson
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
