@@ -41,9 +41,9 @@ for s in selection:
 
 # with open("/Users/Safia/code/Safiaaaaa/geocluster/geocluster/data/berlin_plr_num.geojson") as geo:
 #     geo = geojson.load(geo)
-geo = gpd.read_file('/Users/safia/code/Safiaaaaa/geocluster/geocluster/data/plr_id.geojson')
-df =  pd.read_csv('/Users/Safia/code/Safiaaaaa/geocluster/geocluster/data/full_dataset.csv')
-# df = pd.read_csv('/Users/safia/code/Safiaaaaa/geocluster/geocluster/data/frontend_df.csv')
+geo = gpd.read_file('https://raw.githubusercontent.com/Safiaaaaa/geocluster/main/geocluster/data/plr_id.geojson')
+df =  pd.read_csv('https://raw.githubusercontent.com/Safiaaaaa/geocluster/main/geocluster/data/full_dataset.csv')
+
 clusters_df = cluster(df, n_clusters, features)
 
 # feature = 'child_pov'
