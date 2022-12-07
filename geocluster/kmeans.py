@@ -18,6 +18,12 @@ def kmeans_clustering(n_clusters, df):
     df["clusters"] = clusters.labels_
     return df
 
+def cluster(df, n_clusters, features=['child_pov']):
+    # df = pd.read_csv('/Users/Safia/code/Safiaaaaa/geocluster/geocluster/data/df_dropna.csv')
+    selected = feature_df(df, features)
+    clusters_df = kmeans_clustering(n_clusters, selected)
+    return clusters_df
+
 if __name__ == "__main__":
     root_dir = os.path.dirname(__file__)
     csv_path = os.path.join(root_dir, "data", "df_dropna.csv")
