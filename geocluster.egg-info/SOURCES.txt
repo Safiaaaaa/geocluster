@@ -5,6 +5,7 @@ geocluster/__init__.py
 geocluster/api.py
 geocluster/app.py
 geocluster/kmeans.py
+geocluster/registry.py
 geocluster.egg-info/PKG-INFO
 geocluster.egg-info/SOURCES.txt
 geocluster.egg-info/dependency_links.txt
