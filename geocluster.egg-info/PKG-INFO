@@ -1,8 +1,0 @@
-Metadata-Version: 2.1
-Name: geocluster
-Version: 1.0
-Summary: clusteting spatial data
-Home-page: https://github.com/Safiaaaaa/geocluster
-Author: Safia Ahmedou
-Keywords: spacial data,clustering,mapping,social data
-Requires-Python: >=3.7, <4
