@@ -76,26 +76,3 @@ fig = px.choropleth_mapbox(data_frame = df,
 # fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0},) # coloraxis_colorbar= {'title':f"{shortname} in {unit}"}
 st.plotly_chart(fig)
 st.write("")
-
-""" folium.Choropleth(
-    geo_data='/Users/Safia/code/Safiaaaaa/geocluster/geocluster/data/berlin_plr.geojson',
-    data= pd.read_csv('/Users/Safia/code/Safiaaaaa/geocluster/geocluster/data/df_dropna.csv'),
-    columns=('PLR_ID', 'child_pov'),
-    key_on= 'feature.properties.PLR_ID',
-    fill_color='PuBu',
-    bins=[0,20,50]
-).add_to(m)
-folium_static(m) """
-"""
-
-folium.GeoJson(
-    json.loads(requests.get('/Users/Safia/code/Safiaaaaa/geocluster/geocluster/data/berlin_plr.geojson').text),
-    style_function=lambda feature: {
-        'fillColor': linear(unemployment_dict[feature['id']]),
-        'color': 'black',     #border color for the color fills
-        'weight': 1,          #how thick the border has to be
-        'dashArray': '5, 3'  #dashed lines length,space between them
-    }
-).add_to(m)
-linear.add_to(usa_linear)   #adds colorscale or legend
-"""
