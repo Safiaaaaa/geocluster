@@ -12,7 +12,7 @@ setup(
     description='clusteting spatial data',
     url='https://github.com/Safiaaaaa/geocluster',
     keywords='spacial data, clustering, mapping, social data',
-    python_requires='>=3.7, <4',
+    # python_requires='>=3.7, <4',
     packages=find_packages(),
     include_package_data=True,
     install_requires= requirements,
