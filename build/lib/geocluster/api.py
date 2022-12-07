@@ -19,7 +19,6 @@ def cluster(n_clusters:int, features: Union[List[str], None] = Query(default='ch
     df = pd.read_csv('/Users/Safia/code/Safiaaaaa/geocluster/geocluster/data/df_dropna.csv')
     selected = feature_df(df, features)
     clusters_df = kmeans_clustering(n_clusters, selected)
-    
     return clusters_df.to_dict()
 
 if __name__ == "__main__":

@@ -4,8 +4,10 @@ matplotlib
 plotly
 numpy
 pandas
-sklearn
+scikit-learn
+geojson
 fastapi
+uvicorn
 streamlit-folium
 streamlit
 folium

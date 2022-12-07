@@ -3,18 +3,19 @@ import streamlit as st
 from streamlit_folium import folium_static
 import folium
 import pandas as pd
+import numpy as np
 import requests
 
-import json
+import geojson
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import geopandas as gdp
+import geopandas as gpd
 import plotly.express as px
 # from PIL import Image
 
 
-select_data = st.slider('Number of clusters', 1, 20)
+select_data = st.slider('Number of clusters', 2, 20)
 selection = st.multiselect('Features to cluster on',
      ('Child poverty in % per planning area',
  'Unemployment in % per planning area',
@@ -62,7 +63,7 @@ selection = st.multiselect('Features to cluster on',
 # m = folium.Map(location=[52.52437, 13.41053], zoom_start=10)
 # folium_static(m)
 
-features = {'Population with migration background in % per planning area': 'mig_rate',
+features_dict = {'Population with migration background in % per planning area': 'mig_rate',
  'Unemployment in % per planning area': 'unemployme',
  'Welfare beneficiaries in % per planning area': 'welfare',
  'Child poverty in % per planning area': 'child_pov',
@@ -107,17 +108,41 @@ features = {'Population with migration background in % per planning area': 'mig_
  'Population with Other-origin in % per planning area': 'HK_Sonst',
  'Population with not identified origin in % per planning area': 'HK_NZOrd'}
 
-with open("/Users/Safia/code/Safiaaaaa/geocluster/geocluster/data/berlin_plr_num.geojson") as response:
-    geo = json.load(response)
+features = []
+for s in selection: 
+    features.append(features_dict[s])
+
+
+
+
+url = 'http://127.0.0.1:8000/cluster'
+params={'n_clusters':select_data, 
+    'features': features
+}
+resp = requests.get(url=url, params=params).json()
+
+
+
+# with open("/Users/Safia/code/Safiaaaaa/geocluster/geocluster/data/berlin_plr_num.geojson") as geo:
+#     geo = geojson.load(geo)
+geo = gpd.read_file('/Users/safia/code/Safiaaaaa/geocluster/geocluster/data/plr_id.geojson')
 df =  pd.read_csv('/Users/Safia/code/Safiaaaaa/geocluster/geocluster/data/df_dropna.csv')
+
 # feature = 'child_pov'
+df['cluster'] = df['PLR_ID'].astype(str).map(resp['clusters'])
+
+# colors = dict.fromkeys(np.arange(1, select_data+1), list(np.random.choice(range(256), size=3)))
+f'''{df['cluster']}'''
+
 fig = px.choropleth_mapbox(data_frame = df,
         geojson=geo,
         locations="PLR_ID",
         featureidkey="properties.PLR_ID",
-        color=features[selection[0]],
-        color_continuous_scale="Viridis",
-        range_color=(df[features[selection[0]]].max(), df[features[selection[0]]].min()),
+        color='cluster',
+        # color_discrete_sequence=np.random.choice(range(256)),
+        # color_discrete_map=colors,
+        # color_continuous_scale="Viridis",
+        # range_color=(df[features[selection[0]]].max(), df[features[selection[0]]].min()),
         mapbox_style="carto-positron",
         zoom=9,
         center={
@@ -129,7 +154,8 @@ fig = px.choropleth_mapbox(data_frame = df,
         hover_name='PLR_ID',
         #hover_data={'PLR_ID':False,'child_pov':True}
         )
-fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0},) # coloraxis_colorbar= {'title':f"{shortname} in {unit}"}
+
+# fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0},) # coloraxis_colorbar= {'title':f"{shortname} in {unit}"}
 st.plotly_chart(fig)
 st.write("")
 

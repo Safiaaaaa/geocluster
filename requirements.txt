@@ -7,11 +7,12 @@ plotly
 # data
 numpy
 pandas
-sklearn
+scikit-learn
+geojson
 
 # api
 fastapi
-
+uvicorn 
 # frontend
 streamlit-folium
 streamlit
