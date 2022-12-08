@@ -8,13 +8,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import geopandas as gpd
 import plotly.express as px
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import minmax_scale
 # from PIL import Image
 
 # from geocluster.registry import feat_labels, feat_dict
 # from geocluster.kmeans import cluster
-''''''
-'''BEGIN TO OPTIMIZE'''
-''''''
+
 
 def feature_df(df, features):
     df_selected = df[features]
@@ -54,7 +54,7 @@ feat_labels = ['Child poverty in % per planning area',
  'Amount of public transport stops within 500 m, incl. bus per planning area',
  'Amount of restaurants and cafés within 500 m (exc. fast food) per planning area',
  'Amount of cultural institutions within 500 m (museums, cinemas, theaters, etc.) per planning area',
- "Amount of extra-curriculum educational institutions within 500 m (music and language schools) per planning area",
+ #"Amount of extra-curriculum educational institutions within 500 m (music and language schools) per planning area",
  'Amount of urban furniture (picnic tables, benches, bbq, water points, etc.) within 500 m per planning area',
  'Amount of places for outdoor leisure (swimming pools, parks, playgrounds, etc.) within 500 m per planning area',
  'Amount of bars, pubs, nightclubs, etc. within 500 m per planning area',
@@ -83,7 +83,7 @@ feat_dict = {'Population with migration background in % per planning area': 'mig
  'Welfare beneficiaries in % per planning area': 'welfare',
  'Child poverty in % per planning area': 'child_pov',
  'Dynamic of unemployment in % (2018 to 2020) per planning area': 'dyn_unempl',
- 'Dynamic of welfare in % (2018 to 2020) per planning area': 'dyc_welfare',
+ 'Dynamic of welfare in % (2018 to 2020) per planning area': 'dyn_welfar',
  'Dynamic of child poverty in % (2018 to 2020) per planning area': 'dyn_child',
  'Average advertised rent in €/m2 per planning area': 'ave_rent',
  'Social housing in % per planning area': 'social_hou',
@@ -103,7 +103,7 @@ feat_dict = {'Population with migration background in % per planning area': 'mig
  'Share of houses built before 1940 in % (as of 2015) per planning area': 'B_1940',
  'Share of houses built between 1941 and 1991 in % (as of 2015) per planning area': 'B_1941_199',
  'Share of houses built between 1991 and 2001 in % (as of 2015) per planning area': 'B_1991_201',
- 'Vegetation volume in m3/m2 per planning area': 'vgpm20',
+ 'Vegetation volume in m3/m2 per planning area': 'vegpm20',
  'Amount of other types of schools per planning area': 'other_sch',
  'Amount of vocational schools per planning area': 'vocat_sch',
  'Amount of primary schools per planning area': 'primary_sc',
@@ -122,12 +122,6 @@ feat_dict = {'Population with migration background in % per planning area': 'mig
  'Population with Arab-origin in % per planning area': 'HK_Arab',
  'Population with Other-origin in % per planning area': 'HK_Sonst',
  'Population with not identified origin in % per planning area': 'HK_NZOrd'}
-
-''''''
-'''END TO OPTIMIZE'''
-''''''
-
-
 
 
 n_clusters = st.slider('Number of clusters', 2, 20)
@@ -159,7 +153,7 @@ df =  pd.read_csv('https://raw.githubusercontent.com/Safiaaaaa/geocluster/main/g
 clusters_df = cluster(df, n_clusters, features)
 
 # feature = 'child_pov'
-df['cluster'] = df['PLR_ID'].map(clusters_df['clusters'])
+df['cluster'] = df['PLR_ID'].map(clusters_df['clusters']).astype(int).astype(str)
 
 # colors = dict.fromkeys(np.arange(1, n_cluster+1), list(np.random.choice(range(256), size=3)))
 # f'''{df['cluster']}'''
@@ -169,7 +163,7 @@ fig = px.choropleth_mapbox(data_frame = df,
         locations="PLR_ID",
         featureidkey="properties.PLR_ID",
         color='cluster',
-        # color_discrete_sequence=np.random.choice(range(256)),
+        color_discrete_sequence= px.colors.qualitative.Alphabet,
         # color_discrete_map=colors,
         # color_continuous_scale="Viridis",
         # range_color=(df[features[selection[0]]].max(), df[features[selection[0]]].min()),
@@ -181,10 +175,12 @@ fig = px.choropleth_mapbox(data_frame = df,
         },
         opacity=0.5,
         #labels= {f"{color}: {color} amount"},
-        hover_name='PLR_ID',
-        #hover_data={'PLR_ID':False,'child_pov':True}
+        hover_name='PLR_NAME',
+        hover_data=features
         )
 
+cluster_centers = df.groupby('cluster').mean()[features]
+st.dataframe(cluster_centers)
 # fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0},) # coloraxis_colorbar= {'title':f"{shortname} in {unit}"}
 st.plotly_chart(fig)
 st.write("")
