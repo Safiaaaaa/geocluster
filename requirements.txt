@@ -1,7 +1,6 @@
 # packaging
 pip>=9
 setuptools>=26
-git+https://github.com/Safiaaaaa/geocluster
 matplotlib
 plotly
 
@@ -15,9 +14,7 @@ geojson
 fastapi
 uvicorn 
 # frontend
-streamlit-folium
 streamlit
-folium
 memoized-property
 geopandas
 
