@@ -1,8 +1,7 @@
-geocluster
-
 # packaging
 pip>=9
 setuptools>=26
+git+https://github.com/Safiaaaaa/geocluster
 matplotlib
 plotly
 

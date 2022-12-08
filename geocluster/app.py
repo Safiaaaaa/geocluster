@@ -9,12 +9,9 @@ import matplotlib.pyplot as plt
 import geopandas as gpd
 import plotly.express as px
 # from PIL import Image
-import pathlib
 import sys
-
-# This adds the path of the …/src folder
-# to the PYTHONPATH variable
-sys.path.append(str(pathlib.Path().absolute()).split("/src")[0] + "/src")
+import os
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 from geocluster.registry import feat_labels, feat_dict
 from geocluster.kmeans import cluster
 
@@ -41,8 +38,6 @@ for s in selection:
 # }
 # resp = requests.get(url=url, params=params).json()
 
-# with open("/Users/Safia/code/Safiaaaaa/geocluster/geocluster/data/berlin_plr_num.geojson") as geo:
-#     geo = geojson.load(geo)
 geo = gpd.read_file('https://raw.githubusercontent.com/Safiaaaaa/geocluster/main/geocluster/data/plr_id.geojson')
 df =  pd.read_csv('https://raw.githubusercontent.com/Safiaaaaa/geocluster/main/geocluster/data/full_dataset.csv')
 
