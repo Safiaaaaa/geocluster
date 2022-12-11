@@ -1,5 +1,5 @@
 
-feat_labels = ['Child poverty in % per planning area',
+features_labels = ['Child poverty in % per planning area',
  'Unemployment in % per planning area',
  'Welfare beneficiaries in % per planning area',
  'Population with migration background in % per planning area',
@@ -41,7 +41,7 @@ feat_labels = ['Child poverty in % per planning area',
  'Population with not identified origin in % per planning area']
 
 
-feat_dict = {'Population with migration background in % per planning area': 'mig_rate',
+features_dict = {'Population with migration background in % per planning area': 'mig_rate',
  'Unemployment in % per planning area': 'unemployme',
  'Welfare beneficiaries in % per planning area': 'welfare',
  'Child poverty in % per planning area': 'child_pov',
