@@ -1,10 +1,12 @@
-# Data analysis
-- Document here the project: TaxiFareModel
-- Description: Project Description
-- Data Source:
-- Type of analysis:
+ONGOING
 
-Please document the project the better you can.
+Geocluster: using clustering to get better insights on Berlin and its social context
+
+This is a project I created in order to enable an easier access to the data we collected for our <a href="https://github.com/Safiaaaaa/YouthInTheCity">final project<a> at Le Wagon's Data Science Bootcamp. 
+
+The result is this <a href="https://safiaaaaa-geocluster-geoclusterapp-qr2sk7.streamlit.app/">webapp<a>, where you can plot the distribution of 100 features on Berlin's social and infrastructural landscape - and use clustering to get more insight on how they interact with each other. You'll find more information on the method employed in the description text.
+
+The data was obtained from Berlin Open Data Platform and Openstreetmap and aggregated to the level of the 542 Berliner Plannungsräume (planning areas), the smallest statistical areas on which social data is publicly available. 6 areas were excluded of the analysis due to a too little amount of observations.
 
 # Startup the project
 
